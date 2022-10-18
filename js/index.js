@@ -15,36 +15,9 @@ const astronaut = new Image;
 astronaut.src = 'images/MajorTom.png';
 let score = 0;
 
-let astronautBox = {
-    x: astroTest.x + 50,
-    y: astroTest.y + 5,
-    width: 30,
-    height : 60
-}
 
-let meteoriteNormal = {
-    angle: element.angle,
-    x: element.x,
-    y: element.y + 25,
-    width: 40,
-    height: 40
-}
 
-let meteoriteUp = {
-    angle: element.angle,
-    x: element.x - 25,
-    y: element.y + 30,
-    width: 40,
-    height: 40
-}
 
-let meteoriteDown = {
-    angle: element.angle,
-    x: element.x + 20,
-    y: element.y + 10,
-    width: 40,
-    height: 40
-}
 
 
 const theMeteor = new Image;
@@ -137,6 +110,13 @@ function startGame() {
 
 const astroTest = new majorTom;
 
+let astronautBox = {
+    x: astroTest.x + 50,
+    y: astroTest.y + 5,
+    width: 30,
+    height : 60
+}
+
 
 class meteorite {
     constructor(){
@@ -196,6 +176,29 @@ class meteorite {
 }
 
 const testMeteor = new meteorite;
+
+let meteoriteNormal = {
+    x: element.x,
+    y: element.y + 25,
+    width: 40,
+    height: 40
+}
+
+let meteoriteUp = {
+    angle: element.angle,
+    x: element.x - 25,
+    y: element.y + 30,
+    width: 40,
+    height: 40
+}
+
+let meteoriteDown = {
+    angle: element.angle,
+    x: element.x + 20,
+    y: element.y + 10,
+    width: 40,
+    height: 40
+}
 
 class Iridium extends meteorite {
     constructor(){
@@ -289,10 +292,11 @@ if(astroTest.x > x2 + 40 ||
 function detectCollisionMeteorite(element,x2,y2){
     switch(element.angle){
     case 0:
-    if(astroTest.x + 50 + 15 > x2 + 40 + 20||
-        astroTest.x + 50 + 30 + 15 < x2 + 20||
-        astroTest.y + 5 > y2 + 25 + 40||
-        astroTest.y + 5 + 60 < y2) {
+    if(astronautBox.x > meteoriteNormal.x + meteoriteNormal
+        .width||
+        astronautBox.x + astronautBox.width < meteoriteNormal.x||
+        astronautBox.y > meteoriteNormal.y + meteoriteNormal.height||
+        astronautBox.y + astronautBox.height < meteoriteNormal.y) {
             return "no collision"
         }
         else return "collision";
