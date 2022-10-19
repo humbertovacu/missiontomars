@@ -7,3 +7,47 @@ section {
     border: solid 1px;
 }
 
+#canvas {
+   display: none;
+}
+
+#game-canvas {
+    width: 450;
+    height: 450;
+}
+
+#start-game {
+    position: absolute;
+}
+
+#menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#canvas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#restart {
+    display: none;
+    position: absolute;
+}
+
+h2 {
+    font-size: 1em;
+}
+
+#instructions {
+    width: 250px;
+}
+
+#game-result{
+    width: 250px;
+}

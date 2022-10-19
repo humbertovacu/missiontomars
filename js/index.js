@@ -1,9 +1,31 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d'); 
+const rocketCanvas = document.getElementById("rocket-canvas");
+const ctx2 = rocketCanvas.getContext('2d');
 
 const background = new Image;
 background.src = "images/beautiful-shining-stars-night-sky.jpg";
+const baseBackground = new Image;
+baseBackground.src = "images/Moon.jpg"
+const launchBase = new Image;
+launchBase.src = "images/platform_large_SE.png"
+const rocketOne = new Image;
+rocketOne.src = "images/rocket_baseA_SE.png"
+const rocketFins = new Image;
+rocketFins.src = "images/rocket_finsA_SE.png"
+const rocketFuel = new Image;
+rocketFuel.src = "images/rocket_fuelA_SE.png"
+const rocketSides = new Image;
+rocketSides.src = "images/rocket_sidesA_SE.png"
+const rocketTop = new Image;
+rocketTop.src = "images/rocket_topA_SE.png"
+const baseDish = new Image;
+baseDish.src = "images/satelliteDish_detailed_SE.png"
+const baseHangar = new Image;
+baseHangar.src = "images/hangar_largeB_NE.png"
 
+
+let gameStatus = "not-over"
 let gameMeteorites = [];
 let gameIridium = [];
 let iridiumSpeed = 0.20;
@@ -11,6 +33,7 @@ let meteoriteSpeed = 1;
 let meteoriteFrequency = 0;
 let meteoriteInterval = 240;
 let iridiumInterval = 480;
+let constructionLevel = 0;
 const astronaut = new Image;
 astronaut.src = 'images/MajorTom.png';
 let score = 0;
@@ -62,14 +85,14 @@ class majorTom{
 }
     
 
-drawTwo(){
-    ctx.beginPath()
-    ctx.lineWidth = '1';
-    ctx.strokeStyle = 'red';
-    ctx.rect(this.x+50,this.y+5,30,60)
-    ctx.stroke();
+// drawTwo(){
+//     ctx.beginPath()
+//     ctx.lineWidth = '1';
+//     ctx.strokeStyle = 'red';
+//     ctx.rect(this.x+45,this.y+5,20,90)
+//     ctx.stroke();
 
-}
+// }
 
     move() {
         document.onkeydown = event => {
@@ -98,24 +121,32 @@ drawTwo(){
     update(){
         this.draw();
         this.move();
-        this.drawTwo();
+        // this.drawTwo();
     }
 
 }
 
 function startGame() {
+    let gameCanvas = document.getElementById("canvas");
+    let startMenu = document.getElementById("menu-container");
+    startMenu.style.display = "none";
+    gameCanvas.style.display = "block";
+
+    
     updateCanvas();
 
 }
 
+function scoreDisplay(){
+    let totalBudgetDisplay = document.querySelector("span");
+    totalBudgetDisplay.innerHTML = score * 1000;
+}
+
+
+
 const astroTest = new majorTom;
 
-let astronautBox = {
-    x: astroTest.x + 50,
-    y: astroTest.y + 5,
-    width: 30,
-    height : 60
-}
+
 
 
 class meteorite {
@@ -139,14 +170,22 @@ class meteorite {
         ctx.restore();
     }
 
-    drawTwo(){
-    ctx.beginPath()
-    ctx.lineWidth = '1';
-    ctx.strokeStyle = 'red';
-    ctx.rect(this.x,this.y + 25,40,40)
-    ctx.stroke();
+//     drawTwo(){
+//     // ctx.beginPath()
+//     // ctx.lineWidth = '1';
+//     // ctx.strokeStyle = 'red';
+//     // ctx.rect(this.x -18,this.y + 32,30,30)
+//     // ctx.stroke();
 
-}
+//     ctx.beginPath();
+//     ctx.lineWidth = '1';
+//     ctx.strokeStyle = 'red';
+//     ctx.arc(this.x - 2, this.y + 50, 20, 0, 2 * Math.PI);
+//     ctx.stroke();
+
+    
+
+// }
 
 
     angle(){
@@ -171,34 +210,13 @@ class meteorite {
 
         this.move();
         this.draw();
-        this.drawTwo();
+        // this.drawTwo();
     }
 }
 
 const testMeteor = new meteorite;
 
-let meteoriteNormal = {
-    x: element.x,
-    y: element.y + 25,
-    width: 40,
-    height: 40
-}
 
-let meteoriteUp = {
-    angle: element.angle,
-    x: element.x - 25,
-    y: element.y + 30,
-    width: 40,
-    height: 40
-}
-
-let meteoriteDown = {
-    angle: element.angle,
-    x: element.x + 20,
-    y: element.y + 10,
-    width: 40,
-    height: 40
-}
 
 class Iridium extends meteorite {
     constructor(){
@@ -210,27 +228,29 @@ class Iridium extends meteorite {
     this.angle = 0;
     this.dx = 1 * this.speed;
     this.yx = 1 * this.speed;
-    this.radius = 100;   
+    this.radius = 100;  
+    this.width = 40;
+    this.height = 40; 
 } 
 
-drawTwo(){
-    ctx.beginPath()
-    ctx.lineWidth = '1';
-    ctx.strokeStyle = 'red';
-    ctx.rect(this.x,this.y ,40,40)
-    ctx.stroke();
+// drawTwo(){
+//     ctx.beginPath()
+//     ctx.lineWidth = '1';
+//     ctx.strokeStyle = 'red';
+//     ctx.rect(this.x,this.y ,40,40)
+//     ctx.stroke();
 
-}
+// }
 
     update(){
         // this.angle ;
         this.move();
         this.draw();
-        this.drawTwo();
+        // this.drawTwo();
     }
 }
 
-const testIridium = new Iridium;
+
 
 function updateCanvas() {
     meteoriteFrequency ++;
@@ -238,7 +258,9 @@ function updateCanvas() {
     backgroundImage.draw();
     backgroundImage.move();
     astroTest.update();
-    testIridium.update();
+    scoreDisplay();
+    difficultyLevel();
+    drawBase();
     if(meteoriteFrequency % meteoriteInterval === 0){
          gameMeteorites.push(new meteorite);    
 } 
@@ -248,8 +270,12 @@ for (let i = 0; i < gameMeteorites.length; i++){
     
 
     if(detectCollisionMeteorite(gameMeteorites[i],gameMeteorites[i].x,gameMeteorites[i].y)==="collision") {
-        setTimeout(() => alert('GAME OVER'), 10);
+        gameStatus = "over";
+        gameOver();
+
     }
+
+    // if(gameMeteorites[i].x <= -10 && gameMeteorites[i].y>500){gameMeteorites.splice(i,1)}
 }
 
 
@@ -260,37 +286,76 @@ for (let i = 0; i < gameIridium.length; i++){
     gameIridium[i].update();
    
 
-    if(detectCollision(gameIridium[i],gameIridium[i].x,gameIridium[i].y)==="collision"){
-        score += 100;
+    if(detectCollisionIridium(gameIridium[i],gameIridium[i].x,gameIridium[i].y)==="collect"){
         gameIridium.splice(i,1);
+        score += 100;
+        
     }
 
-    console.log(score);
+    // if(gameIridium[i].x <= -10){gameIridium.splice(i,1)};
+
+
 }
 
   
-    requestAnimationFrame(updateCanvas);
+    if(gameStatus==="not-over"){
+        requestAnimationFrame(updateCanvas)};
 };
 
-function detectCollision(element,x2,y2){
-// let xDist = x2 - astroTest.x;
-// let yDist = y2 - astroTest.y;
 
-// let distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
-// return distance < element.radius + astroTest.radius;
 
-if(astroTest.x > x2 + 40 ||
-    astroTest.x + 40 < x2 ||
-    astroTest.y > y2 + 40||
-    astroTest.y + 70 < y2) {
-        return "no collision"
+
+
+
+function detectCollisionIridium(element,x2,y2){
+
+    let astronautBoxEle = {
+        x: astroTest.x + 45,
+        y: astroTest.y + 5,
+        width: 20,
+        height : 90
     }
-    else return "collision";
-
+    if(astronautBoxEle.x > element.x + element.width||
+        astronautBoxEle.x + astronautBoxEle.width < element.x||
+        astronautBoxEle.y > element.y + element.height||
+        astronautBoxEle.y + astronautBoxEle.height < element.y) {
+            return "don't collect"
+        }
+        else return "collect";
 };
 
 function detectCollisionMeteorite(element,x2,y2){
-    switch(element.angle){
+
+let astronautBox = {
+    x: astroTest.x + 45,
+    y: astroTest.y + 5,
+    width: 20,
+    height : 90
+}
+ 
+let meteoriteNormal = {
+    angle: element.angle,
+    x: element.x + 7,
+    y: element.y + 30,
+    width: 50,
+    height: 30
+}
+
+let meteoriteUp = {
+    angle: element.angle,
+    x: element.x - 2,
+    y: element.y + 50,
+    radius: 15
+}
+
+let meteoriteDown = {
+    angle: element.angle,
+    x: element.x + 42,
+    y: element.y + 28,
+    radius: 15
+}
+
+    switch(element.angle) {
     case 0:
     if(astronautBox.x > meteoriteNormal.x + meteoriteNormal
         .width||
@@ -301,31 +366,109 @@ function detectCollisionMeteorite(element,x2,y2){
         }
         else return "collision";
     case -60:
-    if(astroTest.x + 50 + 15 > x2 + 40 + 20||
-        astroTest.x + 50 + 30 + 15 < x2 + 20||
-        astroTest.y + 5 > y2 + 10 + 40||
-        astroTest.y + 5 + 60 < y2 + 10) {
+    if(astronautBox.x > meteoriteDown.x + meteoriteDown.radius||
+        astronautBox.x + astronautBox.width < meteoriteDown.x||
+        astronautBox.y > meteoriteDown.y + meteoriteDown.radius||
+        astronautBox.y + astronautBox.height < meteoriteDown.y) {
             return "no collision"
         }
         else return "collision";
+
     case 60:
-    if(astroTest.x > ((x2 - 25) + 40 + 20) ||
-        astroTest.x + 50< ((x2 - 25) + 20)||
-        astroTest.y + 5 > y2 + 30 + 40||
-        astroTest.y + 5 + 70 < y2 + 30) {
+    if(astronautBox.x > meteoriteUp.x + meteoriteUp.radius||
+        astronautBox.x + astronautBox.width < meteoriteUp.x||
+        astronautBox.y > meteoriteUp.y + meteoriteUp.radius||
+        astronautBox.y + astronautBox.height < meteoriteUp.y) {
             return "no collision"
         }
         else return "collision";
     };
     
+    
 
+}
+
+function difficultyLevel(){
+    if(score >= 1000){
+        constructionLevel += 1;
+        meteoriteSpeed = 1.2;
+        score = 0;
+    }
+
+    if (constructionLevel >= 2){
+        meteoriteSpeed = 1.5;
+    }
+
+
+    if (constructionLevel >=3){
+        meteoriteInterval = 120;
+    }
+
+    if(constructionLevel >=4){
+        meteoriteInterval = 90;
+        meteoriteSpeed = 2;
+    }
+
+    if(constructionLevel >= 5){
+        console.log("You won!")
+    }
+}
+
+const restartButton = document.getElementById("restart");
+
+function gameOver(){
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("Game Over", canvas.width/2, 50);
+
+    
+    restartButton.style.display = "block";
 }
 
 function restartGame(){
-    backgroundImage.draw();
-    backgroundImage.move();
-    setTimeout(()=>startGame(),1000)
+    restartButton.style.display = "none";
+    location.reload()
+
 }
+
+function drawBase(){
+
+    ctx2.drawImage(baseBackground, 0,0,550, rocketCanvas.height);
+
+    
+
+    ctx2.drawImage(launchBase,50,200,150,150);
+
+    ctx2.drawImage(baseHangar,160,180,150,150);
+    
+    ctx2.drawImage(baseDish,-50,130,200,200);
+
+    if(constructionLevel >= 1){
+        ctx2.drawImage(rocketOne,75,230,100,100)
+    };
+
+    if(constructionLevel >= 2){
+    ctx2.drawImage(rocketFins,75,210,100,100)
+    };
+
+    if(constructionLevel >= 3){
+    ctx2.drawImage(rocketFuel,75,200,100,100)};
+
+    
+    if(constructionLevel >= 4){
+    ctx2.drawImage(rocketSides,75,195,100,100)};
+
+
+    if(constructionLevel >= 5){
+    ctx2.drawImage(rocketTop,75,180,100,100)};
+    
+};
+
+
+
+
+
 
 
 
