@@ -129,7 +129,6 @@ class majorTom{
 }
 
 function startGame() {
-    window.onload()
     let gameCanvas = document.getElementById("canvas");
     let startMenu = document.getElementById("menu-container");
     startMenu.style.display = "none";
