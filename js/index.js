@@ -48,7 +48,7 @@ let score = 0;
 const theMeteor = new Image;
 theMeteor.src = "images/Meteor.png";
 const iridium = new Image;
-iridium.src = "images/iridium.png";
+iridium.src = "images/Iridium.png";
 
 
 
