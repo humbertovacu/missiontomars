@@ -37,7 +37,7 @@ let gameIridium = [];
 let iridiumSpeed = 0.20;
 let meteoriteSpeed = 1;
 let meteoriteFrequency = 0;
-let meteoriteInterval = 240;
+let meteoriteInterval = 180;
 let iridiumInterval = 480;
 let constructionLevel = 0;
 const astronaut = new Image;
@@ -112,12 +112,12 @@ class majorTom{
                         break;
                 case 39:
                     this.x += 30;
-                    if(this.x >=350){this.x=350;}
+                    if(this.x >=800){this.x=800;}
                         break;
                     
                 case 40:
                     this.y += 30;
-                    if(this.y >=350){this.y=350;}
+                    if(this.y >=800){this.y=800;}
                         break;
             }
         }
@@ -135,8 +135,11 @@ class majorTom{
 function startGame() {
     let gameCanvas = document.getElementById("canvas");
     let startMenu = document.getElementById("menu-container");
+    let startScore = document.getElementById("score");
     startMenu.style.display = "none";
     gameCanvas.style.display = "block";
+    startScore.style.display = "block";
+
 
     
     updateCanvas();
@@ -161,7 +164,7 @@ class meteorite {
         this.speed = meteoriteSpeed;
         this.width = this.img.width;
         this.height = this.img.height;
-        this.x = 450;
+        this.x = 900;
         this.y = Math.random()*canvas.clientHeight;
         this.angle = this.angle();
         this.dx = 1 * this.speed;
@@ -228,7 +231,7 @@ class Iridium extends meteorite {
     constructor(){
     super()
     this.img = iridium;
-    this.x = Math.random()*canvas.clientWidth+450;
+    this.x = Math.random()*canvas.clientWidth+900;
     this.y = Math.random()*canvas.clientHeight;
     this.speed = iridiumSpeed;
     this.angle = 0;

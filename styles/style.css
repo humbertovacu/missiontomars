@@ -1,10 +1,12 @@
 body {
     display: flex;
     justify-content: center;
+    background-color: rgb(35,31,32);
 }
 
 section {
     border: solid 1px;
+
 }
 
 #canvas {
@@ -54,3 +56,14 @@ h2 {
     width: 250px;
 }
 
+#score {
+    display: none;
+}
+
+h1, h2, p {
+    color: rgb(97, 126, 142);
+}
+
+h2 {
+    font-size: 1.5em;
+}
