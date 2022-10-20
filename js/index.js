@@ -418,22 +418,23 @@ function difficultyLevel(){
     if(score >= 1000){
         constructionLevel += 1;
         rocketPart.play();
-        meteoriteSpeed = 1.2;
+        meteoriteSpeed = 1.5;
         score = 0;
     }
 
     if (constructionLevel >= 2){
-        meteoriteSpeed = 1.5;
+        meteoriteSpeed = 2;
+        meteoriteInterval = 120;
     }
 
 
     if (constructionLevel >=3){
-        meteoriteInterval = 120;
+        meteoriteInterval = 90;
     }
 
     if(constructionLevel >=4){
-        meteoriteInterval = 90;
-        meteoriteSpeed = 2;
+        meteoriteInterval = 60;
+        meteoriteSpeed = 2.5;
     }
 
     if(constructionLevel >= 5){
@@ -469,7 +470,7 @@ function restartGame(){
 function missionComplete(){
 
     const gameWonImg = document.getElementById("won-game");
-    mainGameTrack.stop(); 
+    mainGameTrack.pause(); 
     missionCompleteMusic.play();   
     canvas.style.display = "none";
     gameWonImg.style.display = "block";
