@@ -44,10 +44,13 @@ h2 {
     font-size: 1em;
 }
 
-#instructions {
+.game-section {
+    width: 250px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: justify;
+}
+.game-section p {
     width: 250px;
 }
 
-#game-result{
-    width: 250px;
-}

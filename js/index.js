@@ -1,3 +1,9 @@
+window.onload = () => {
+    document.getElementById('start-game').onclick = () => {
+      startGame();
+    };
+};
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d'); 
 const rocketCanvas = document.getElementById("rocket-canvas");
@@ -464,11 +470,3 @@ function drawBase(){
     ctx2.drawImage(rocketTop,75,180,100,100)};
     
 };
-
-
-
-
-
-
-
-

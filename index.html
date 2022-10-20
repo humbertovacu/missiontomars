@@ -7,14 +7,22 @@
         <title>Mission to Mars</title>
     </head>
     <body>
-        <section id = "instructions">
+        <section class = "game-section">
             <h1>Instructions</h1>
+            <p>Three hundred years after the establishment of the first colony on the Moon, humankind is ready to get to the next frontier: Mars. <br>
+                <br>
+            However, the new Mars Landing rocket is very expensive, and it will require a huge amount of the ultra-rare space mineral Iridium to be funded. <br>
+            <br>
+            Use the arrow keys to help Major Tom travel through space in search of Iridium rocks. 
+            Each rocket part has a cost of $1,000,000. If this amount is collected, it will be inmediately invested in the construction of the rocket. <br>
+            <br>
+            Avoid the meteorites!
 
         </section>
         <section id = "game-canvas">
             <div id = "menu-container">
                 <img src="images/Start Menu.jpg" width = "600" height = "450"  alt="menu-image">
-                <button onclick = "startGame()" id = "start-game">Start Mission</button>
+                <button id = "start-game">Start Mission</button>
             </div>
             <div id = "canvas-container">
             <canvas id = "canvas" width = "450" height= "450"></canvas>
@@ -22,7 +30,7 @@
             </div>
 
         </section>
-        <section id = "game-result">
+        <section class = "game-section">
             <h2 id = "score">Total Budget: $<span>0</span></h2>
             <div>
              <canvas id = "rocket-canvas" width = "250" height = "400"></canvas>
