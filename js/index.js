@@ -1,5 +1,6 @@
 window.onload = () => {
     document.getElementById('start-game').onclick = () => {
+      gameStartSound.play();
       startGame();
     };
 };
@@ -8,6 +9,19 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d'); 
 const rocketCanvas = document.getElementById("rocket-canvas");
 const ctx2 = rocketCanvas.getContext('2d');
+const mainGameTrack = new Audio;
+mainGameTrack.src = "audio/main-game.mp3";
+mainGameTrack.loop = true;
+const iridiumCapture = new Audio;
+iridiumCapture.src = "audio/iridium-capture.wav"
+const rocketPart = new Audio;
+rocketPart.src = "audio/rocket-part.wav"
+const missionCompleteMusic = new Audio;
+missionCompleteMusic.src = "audio/mission-complete.wav"
+const failedMissionAudio = new Audio;
+failedMissionAudio.src = "audio/failed-mission.wav"
+const gameStartSound = new Audio;
+gameStartSound.src = "audio/game-start.wav";
 
 const background = new Image;
 background.src = "images/beautiful-shining-stars-night-sky.jpg";
@@ -34,7 +48,7 @@ baseHangar.src = "images/hangar_largeB_NE.png"
 let gameStatus = "not-over"
 let gameMeteorites = [];
 let gameIridium = [];
-let iridiumSpeed = 0.20;
+let iridiumSpeed = 0.40;
 let meteoriteSpeed = 1;
 let meteoriteFrequency = 0;
 let meteoriteInterval = 180;
@@ -139,6 +153,7 @@ function startGame() {
     startMenu.style.display = "none";
     gameCanvas.style.display = "block";
     startScore.style.display = "block";
+    mainGameTrack.play();
 
 
     
@@ -298,6 +313,8 @@ for (let i = 0; i < gameIridium.length; i++){
     if(detectCollisionIridium(gameIridium[i],gameIridium[i].x,gameIridium[i].y)==="collect"){
         gameIridium.splice(i,1);
         score += 100;
+        iridiumCapture.play();
+        
         
     }
 
@@ -400,6 +417,7 @@ let meteoriteDown = {
 function difficultyLevel(){
     if(score >= 1000){
         constructionLevel += 1;
+        rocketPart.play();
         meteoriteSpeed = 1.2;
         score = 0;
     }
@@ -419,13 +437,20 @@ function difficultyLevel(){
     }
 
     if(constructionLevel >= 5){
-        console.log("You won!")
+        gameStatus = "over";
+        ctx.font = "50px Arial";
+        ctx.fillStyle = "red";
+        ctx.textAlign = "center";
+        ctx.fillText("Prepare for countdown!", canvas.width/2, 50);
+        setTimeout(missionComplete(),5000);
     }
 }
 
 const restartButton = document.getElementById("restart");
 
 function gameOver(){
+    mainGameTrack.pause();
+    failedMissionAudio.play();
     ctx.font = "30px Arial";
     ctx.fillStyle = "red";
     ctx.textAlign = "center";
@@ -438,6 +463,17 @@ function gameOver(){
 function restartGame(){
     restartButton.style.display = "none";
     location.reload()
+
+}
+
+function missionComplete(){
+
+    const gameWonImg = document.getElementById("won-game");
+    mainGameTrack.stop(); 
+    missionCompleteMusic.play();   
+    canvas.style.display = "none";
+    gameWonImg.style.display = "block";
+    restartButton.style.display = "block";
 
 }
 
