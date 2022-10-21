@@ -7,7 +7,7 @@
         <title>Mission to Mars</title>
     </head>
     <body>
-        <section class = "game-section">
+        <section id = "instructions">
             <h1>Instructions</h1>
             <p>Three hundred years after the establishment of the first colony on the Moon, humankind is ready to get to the next frontier: Mars. <br>
                 <br>
@@ -21,17 +21,17 @@
         </section>
         <section id = "game-canvas">
             <div id = "menu-container">
-                <img src="images/Start Menu.jpg" width = "1100" height = "900"  alt="menu-image">
+                <img src="images/Start Menu.jpg" width = "700" height = "500"  alt="menu-image">
                 <button id = "start-game">Start Mission</button>
             </div>
             <div id = "canvas-container">
-                <img id = "won-game" src="images/mission-accomplished.jpg" width = "900" height = "1200" alt="mission mission-accomplished">
-                <canvas id = "canvas" width = "900" height= "900"></canvas>
+                <img id = "won-game" src="images/mission-accomplished.jpg" width = "800" height = "1100" alt="mission mission-accomplished">
+                <canvas id = "canvas" width = "800" height= "800"></canvas>
                 <button onclick = "restartGame()" id = "restart">Restart Mission</button>
             </div>
 
         </section>
-        <section class = "game-section">
+        <section id = "game-results">
            <h1>Mission Control</h1>
             <div>
              <canvas id = "rocket-canvas" width = "250" height = "400"></canvas>

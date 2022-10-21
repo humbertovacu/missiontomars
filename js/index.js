@@ -126,12 +126,12 @@ class majorTom{
                         break;
                 case 39:
                     this.x += 30;
-                    if(this.x >=800){this.x=800;}
+                    if(this.x >=700){this.x=700;}
                         break;
                     
                 case 40:
                     this.y += 30;
-                    if(this.y >=800){this.y=800;}
+                    if(this.y >=700){this.y=700;}
                         break;
             }
         }
@@ -147,9 +147,13 @@ class majorTom{
 }
 
 function startGame() {
+    let instructionsContainer = document.getElementById("instructions");
+    let missionControlContainer = document.getElementById("game-results");
     let gameCanvas = document.getElementById("canvas");
     let startMenu = document.getElementById("menu-container");
     let startScore = document.getElementById("score");
+    instructionsContainer.style.display = "none";
+    missionControlContainer.style.display = "block";
     startMenu.style.display = "none";
     gameCanvas.style.display = "block";
     startScore.style.display = "block";
@@ -179,7 +183,7 @@ class meteorite {
         this.speed = meteoriteSpeed;
         this.width = this.img.width;
         this.height = this.img.height;
-        this.x = 900;
+        this.x = 800;
         this.y = Math.random()*canvas.clientHeight;
         this.angle = this.angle();
         this.dx = 1 * this.speed;
@@ -194,12 +198,12 @@ class meteorite {
         ctx.restore();
     }
 
-//     drawTwo(){
-//     // ctx.beginPath()
-//     // ctx.lineWidth = '1';
-//     // ctx.strokeStyle = 'red';
-//     // ctx.rect(this.x -18,this.y + 32,30,30)
-//     // ctx.stroke();
+    // drawTwo(){
+    // ctx.beginPath()
+    // ctx.lineWidth = '1';
+    // ctx.strokeStyle = 'red';
+    // ctx.rect(this.x -18,this.y + 32,30,30)
+    // ctx.stroke();}
 
 //     ctx.beginPath();
 //     ctx.lineWidth = '1';
