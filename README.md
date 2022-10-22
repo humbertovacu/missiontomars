@@ -12,6 +12,8 @@
 
 ###### Avoid the meteorites!
 
+###### [You can play here!](https://humbertovacu.github.io/missiontomars/)
+
 ## How it works
 
 ###### The basic setup consists of two HTML canvas interacting with each other, the "Game Window" and the "Mission Control". In the Mission Control, the user can see the current budget amount (each collision with an *Iridium* element adds $100.000) and the progress of the rocket construction. Every time the budget reaches $1.000.000, it will reset to 0 and a part of the rocket is going to display in the Mission Control Canvas. 
